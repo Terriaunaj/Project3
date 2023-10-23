@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/uBoeds-a)
 # Project 3: Stop Detection
 
 In Project 3, we will continue working with our triplog dataset. This dataset contains latitude and longitude data that was gathered over a 3 day trip. Last project, we created some useful methods to help us find aggregate data. This project, we want to further refine our data by removing excess points that are grouped together, which we will call "stops". You will create a new ArrayList which will not include the points that are stops, so that we can get a more accurate sense of the trip data, such as total time and average speed. 
