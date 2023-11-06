@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Driver {
 	
@@ -25,4 +26,32 @@ public class Driver {
 	}
 	
 
+//	public static int h2StopDetection() {
+//		ArrayList<ArrayList<TripPoint>> numStops = new ArrayList<ArrayList<TripPoint>>();
+//		movingTrip = new ArrayList<>(trip);
+//		int count=0;
+//		for(int i = 0; i < trip.size(); i++) {
+//			TripPoint pt1 = trip.get(i);
+//			ArrayList<TripPoint> stopZones = new ArrayList<TripPoint>();
+//			stopZones.add(pt1);
+//			
+//		for(int j = i+1; j < trip.size(); j++) {
+//			TripPoint pt2 = trip.get(j);
+//			double distance = haversineDistance(pt1,pt2);
+//			
+//			if(distance <= 0.5) {
+//				stopZones.add(pt2);
+//				movingTrip.remove(pt2);
+//			}
+//			else {
+//				break;
+//			}
+//		}
+//			if(stopZones.size() >= 3) {
+//				numStops.add(stopZones);
+//				count++;
+//			}
+//		}
+//		return count;
+//	}
 }

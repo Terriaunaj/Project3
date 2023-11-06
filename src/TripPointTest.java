@@ -18,6 +18,7 @@ class TripPointTest {
 
 	@Test
 	void testHeuristic1() throws FileNotFoundException, IOException {
+		setup();
 		int stops = TripPoint.h1StopDetection();
 		assertEquals(226, stops);
 		ArrayList<TripPoint> moving = TripPoint.getMovingTrip();
@@ -29,6 +30,7 @@ class TripPointTest {
 	
 	@Test
 	void testHeuristic2() throws FileNotFoundException, IOException {
+		setup();
 		int stops = TripPoint.h2StopDetection();
 		assertEquals(239, stops);
 		ArrayList<TripPoint> moving = TripPoint.getMovingTrip();
@@ -39,6 +41,7 @@ class TripPointTest {
 	
 	@Test
 	void testMovingTime() throws FileNotFoundException, IOException {
+		setup();
 		TripPoint.h1StopDetection();
 		BigDecimal actual = new BigDecimal(Double.toString(TripPoint.movingTime()));
 		actual = actual.setScale(3, RoundingMode.HALF_UP);
@@ -52,6 +55,7 @@ class TripPointTest {
 	
 	@Test
 	void testStoppedTime() throws FileNotFoundException, IOException {
+		setup();
 		TripPoint.h1StopDetection();
 		BigDecimal actual = new BigDecimal(Double.toString(TripPoint.stoppedTime()));
 		actual = actual.setScale(3, RoundingMode.HALF_UP);
@@ -65,6 +69,7 @@ class TripPointTest {
 	
 	@Test
 	void testAvgMovingSpeed() throws FileNotFoundException, IOException {
+		setup();
 		TripPoint.h1StopDetection();
 		BigDecimal actual = new BigDecimal(Double.toString(TripPoint.avgMovingSpeed()));
 		actual = actual.setScale(1, RoundingMode.HALF_UP);
