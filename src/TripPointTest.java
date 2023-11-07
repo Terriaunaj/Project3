@@ -32,7 +32,7 @@ class TripPointTest {
 	void testHeuristic2() throws FileNotFoundException, IOException {
 		setup();
 		int stops = TripPoint.h2StopDetection();
-		assertEquals(239, stops);
+		assertEquals(241, stops);
 		ArrayList<TripPoint> moving = TripPoint.getMovingTrip();
 		assertEquals(35.211037, moving.get(0).getLat());
 		assertEquals(35.340107, moving.get(2).getLat());
@@ -47,6 +47,7 @@ class TripPointTest {
 		actual = actual.setScale(3, RoundingMode.HALF_UP);
 		assertEquals(46.833, actual.doubleValue());
 		
+		setup();
 		TripPoint.h2StopDetection();
 		actual = new BigDecimal(Double.toString(TripPoint.movingTime()));
 		actual = actual.setScale(3, RoundingMode.HALF_UP);

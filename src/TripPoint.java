@@ -2,9 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * 
@@ -170,7 +170,19 @@ public class TripPoint {
 	 * 1. finds and returns the average speed while moving in the entire trip
 	 */
 	public static double avgMovingSpeed() throws FileNotFoundException, IOException {
-		return totalDistance()/movingTime();
+		
+		//105.8
+		double totDis = 0.0;
+		for(int i = 1; i < movingTrip.size(); i++) {
+			TripPoint p1 = movingTrip.get(i-1);
+			TripPoint p2 = movingTrip.get(i);
+			
+			double dis = haversineDistance(p1,p2);
+			totDis += dis;
+			
+		}
+		
+		return totDis/movingTime();
 	}
 	
 	/**
@@ -189,20 +201,28 @@ public class TripPoint {
 	 * 
 	 * @return
 	 * 1. returns the amount of time spent moving over the entire trip
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public static double movingTime() {
-		int minutes = movingTrip.get(movingTrip.size()-1).getTime();
-		double hours = minutes / 60.0;
-		return hours;
+	//45.583
+	public static double movingTime() throws FileNotFoundException, IOException {
+//		int minutes = movingTrip.get(movingTrip.size()-1).getTime();
+//		double hours = minutes / 60.0;
+//		return hours;
+		return ((movingTrip.size()-1) * 5)/60.0;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 * 1. returns the total time stopped throughout the entire trip
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public static double stoppedTime() {
-		return h1StopDetection()/60.0;	
+	//20.083
+	public static double stoppedTime() throws FileNotFoundException, IOException {
+		
+		return totalTime() - movingTime();	
 	}
 	
 	/**
@@ -308,12 +328,14 @@ public class TripPoint {
 	 * @return
 	 * 1.Three or more points that are within the same stop radius of 0.5km
 	 * 2.Removes stops from moving trip arraylist
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public static int h2StopDetection() {
-		ArrayList<ArrayList<TripPoint>> numStops = new ArrayList<ArrayList<TripPoint>>();
-		ArrayList<TripPoint> stopZones = new ArrayList<>();
-		ArrayList<TripPoint> newStopZone = new ArrayList<>();
-		HashSet<TripPoint> ptRemove = new LinkedHashSet<>();
+	//241
+	public static int h2StopDetection() throws FileNotFoundException, IOException {
+
+		ArrayList<ArrayList<TripPoint>> numStops = new ArrayList<>();
+		Set<TripPoint> ptRemove = new LinkedHashSet<>();
 		boolean added = false;
 		movingTrip = new ArrayList<>(trip);
 		int count=0;
@@ -323,24 +345,26 @@ public class TripPoint {
 			
 			for(ArrayList<TripPoint> next : numStops) {
 			
-				for(TripPoint point : stopZones) {
+				
+				for(TripPoint point : next) {
 					
 				double newDist = haversineDistance(current,point);
 			
 				if(newDist <= 0.5) {
 					added = true;
-					stopZones.add(current);
+					next.add(current);
 					break;
 				}
 			}
 		}
 			if(added == false) {
+				ArrayList<TripPoint> newStopZone = new ArrayList<>();
 				newStopZone.add(current);
 				numStops.add(newStopZone);
 			}
 		}
 		for(ArrayList<TripPoint> pt : numStops) {
-			if(numStops.size() >= 3) {
+			if(pt.size() >= 3) {
 				ptRemove.addAll(pt);
 				count+=pt.size();
 			}
